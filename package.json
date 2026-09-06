@@ -3,16 +3,19 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://yourusername.github.io/nilparrot",
+  "homepage": "https://nilparrot65.github.io/nilparrot-portal",
   "scripts": {
     "start": "vite dev --port 3002",
     "build": "tsc && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@tailwindcss/postcss": "^4.3.3",
     "flowbite": "^4.0.2",
+    "gh-pages": "^6.3.0",
     "postcss": "^8.5.25",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
