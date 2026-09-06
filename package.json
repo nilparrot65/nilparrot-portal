@@ -3,7 +3,7 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://nilparrot65.github.io/nilparrot-portal",
+  "homepage": "https://nilparrot65.github.io",
   "scripts": {
     "start": "vite dev --port 3002",
     "build": "tsc && vite build",
