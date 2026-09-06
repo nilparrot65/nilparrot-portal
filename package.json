@@ -1,9 +1,9 @@
 {
-  "name": "nilparrot",
+  "name": "nilparrot-portal",
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "https://nilparrot65.github.io",
+  "homepage": "https://nilparrot65.github.io/nilparrot-portal",
   "scripts": {
     "start": "vite dev --port 3002",
     "build": "tsc && vite build",
