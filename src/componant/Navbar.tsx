@@ -1,26 +1,38 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../assets/logo2.png";
 import { menuItemsData } from "../data/menu";
 import { Link } from "react-router-dom";
 import type { Menu } from "../model/Menu";
 
-interface NavbarProps{
-  activeMenu:string; 
-  setActiveMenu:(type:string)=>void;
+interface NavbarProps {
+  activeMenu: string;
+  setActiveMenu: (type: string) => void;
 }
 
-export const Navbar = ({activeMenu, setActiveMenu}:NavbarProps) => {
-  
+export const Navbar = ({ activeMenu, setActiveMenu }: NavbarProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => {
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Only close if menu is currently open AND page has been scrolled down
+      if (isOpen && window.scrollY > 20) {
+        setIsOpen(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isOpen]); // Added isOpen dependency so it correctly reads the state
 
   const toggleServiceMenu = (menu: Menu) => {
     if (menu.label.toLowerCase() !== "demo") {
       setActiveMenu(menu.label.toLowerCase());
     }
+    setIsOpen(false); // Closes mobile menu after selecting a page
   };
 
   const bgHome =
@@ -31,7 +43,7 @@ export const Navbar = ({activeMenu, setActiveMenu}:NavbarProps) => {
 
   const linkCss =
     "nav-link nav2 text-indigo-400 hover:text-indigo-900 transition text-sm xl:text-base block py-2 lg:py-0";
-  
+
   const activeLinkCss =
     "nav-link nav2 text-indigo-900 font-bold transition text-sm xl:text-base block py-2 lg:py-0";
 
@@ -39,16 +51,15 @@ export const Navbar = ({activeMenu, setActiveMenu}:NavbarProps) => {
     "text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-green-200 dark:focus:ring-green-800 font-medium rounded-lg text-sm px-4 py-2.5 text-center leading-5 inline-block";
 
   return (
-    <nav
-      className={
-        activeMenu === "home" ? bgHome : bgOther
-      }
-    >
+    <nav className={activeMenu === "home" ? bgHome : bgOther}>
       <div className="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4 w-full">
         <Link
           className="navbar-brand navbar-brand-custom text-2xl font-bold font-display text-slate-900"
           to="/"
-          onClick={() => setActiveMenu("home")}
+          onClick={() => {
+            setActiveMenu("home");
+            setIsOpen(false);
+          }}
         >
           <img src={logo} className="h-14 w-auto" alt="Logo" />
         </Link>
@@ -69,7 +80,9 @@ export const Navbar = ({activeMenu, setActiveMenu}:NavbarProps) => {
 
         {/* Navigation Links and CTA */}
         <div
-          className={`${isOpen ? "flex" : "hidden"} lg:flex flex-col lg:flex-row items-start lg:items-center justify-between w-full lg:w-auto mt-4 lg:mt-0`}
+          className={`${
+            isOpen ? "flex" : "hidden"
+          } lg:flex flex-col lg:flex-row items-start lg:items-center justify-between w-full lg:w-auto mt-4 lg:mt-0`}
           id="mainNav"
         >
           <ul className="navbar-nav ms-auto flex flex-col lg:flex-row items-start lg:items-center gap-1 lg:gap-8 font-medium w-full lg:w-auto mb-4 lg:mb-0">
@@ -77,7 +90,7 @@ export const Navbar = ({activeMenu, setActiveMenu}:NavbarProps) => {
               <li className="nav-item w-full lg:w-auto" key={menu.label}>
                 <Link
                   className={
-                    (menu.label.toLowerCase() !== "demo")
+                    menu.label.toLowerCase() !== "demo"
                       ? activeMenu.toLowerCase() === menu.label.toLowerCase()
                         ? activeLinkCss
                         : linkCss

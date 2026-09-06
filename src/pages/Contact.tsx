@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import Header from "../componant/Header";
+import { Link } from "react-router-dom";
 
 interface ContactProps {
   activeMenu: string;
@@ -184,10 +185,10 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                       <option value="" disabled>
                         Select a range
                       </option>
-                      <option>Under $5,000</option>
-                      <option>$5,000 – $15,000</option>
-                      <option>$15,000 – $50,000</option>
-                      <option>$50,000+</option>
+                      <option>Under ₹5,000</option>
+                      <option>₹5,000 – ₹15,000</option>
+                      <option>₹15,000 – ₹50,000</option>
+                      <option>₹50,000+</option>
                     </select>
                   </div>
                 </div>
@@ -245,9 +246,9 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                     className="ms-2 text-sm font-medium text-slate-600"
                   >
                     I agree to the{" "}
-                    <a href="#" className="text-blue-600 hover:underline">
+                    <Link to="/privacy-policy" className="text-blue-600 hover:underline">
                       Privacy Policy
-                    </a>{" "}
+                    </Link>{" "}
                     and consent to being contacted about my inquiry.
                   </label>
                 </div>

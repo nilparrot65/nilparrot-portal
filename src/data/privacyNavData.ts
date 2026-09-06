@@ -10,5 +10,4 @@ export const privacyNavItems :PrivacyNavItem[] = [
   { id: 'retention', label: '7. Data Retention' },
   { id: 'rights', label: '8. User Rights' },
   { id: 'compliance', label: '9. Legal Compliance' },
-  { id: 'contact', label: '10. Contact Information' },
 ];
