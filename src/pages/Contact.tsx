@@ -10,10 +10,9 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
   useEffect(() => {
     setActiveMenu("contact");
   }, []);
-  
+
   return (
     <div className="min-h-screen text-slate-900 font-sans antialiased">
-      
       {/* Page Header */}
       <Header activeMenu={activeMenu} />
 
@@ -47,7 +46,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
               <p className="text-slate-600 text-sm">
                 A-404 Sanskruti Homes
                 <br />
-                Lohagaon Pune 411014
+                Lohegaon Pune 411014
               </p>
             </div>
 
@@ -74,7 +73,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                 href="mailto:hello@nilparrot.com"
                 className="text-blue-600 font-semibold text-sm hover:underline"
               >
-                hello@nilparrot.com
+                info@nilparrot.com
               </a>
             </div>
 
@@ -86,7 +85,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="size-6"
+                  className="size-6"
                 >
                   <path
                     stroke-linecap="round"
@@ -97,7 +96,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
               </div>
               <h3 className="text-xl font-bold font-['Sora'] mb-2">Call Us</h3>
               <p className="text-slate-600 text-sm mb-1">
-                Mon – Fri, 9am – 6pm PST
+                Mon – Fri, 9am – 6pm IST
               </p>
               <a
                 href="tel:+14155550182"
@@ -246,7 +245,10 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                     className="ms-2 text-sm font-medium text-slate-600"
                   >
                     I agree to the{" "}
-                    <Link to="/privacy-policy" className="text-blue-600 hover:underline">
+                    <Link
+                      to="/privacy-policy"
+                      className="text-blue-600 hover:underline"
+                    >
                       Privacy Policy
                     </Link>{" "}
                     and consent to being contacted about my inquiry.
@@ -278,7 +280,20 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
 
               <div className="p-8 bg-slate-900 text-white rounded-3xl shadow-xl">
                 <div className="w-12 h-12 bg-white/10 text-white rounded-xl flex items-center justify-center text-xl mb-4">
-                  <i className="bi bi-clock"></i>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="1.5"
+                    stroke="currentColor"
+                    class="size-6"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"
+                    />
+                  </svg>
                 </div>
                 <h5 className="text-xl font-bold font-['Sora'] mb-4">
                   Office Hours
@@ -298,7 +313,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                   </li>
                 </ul>
                 <p className="text-slate-400 text-xs mt-4">
-                  All times Pacific Standard Time (PST).
+                  All times Indian Standard Time (IST).
                 </p>
               </div>
             </div>

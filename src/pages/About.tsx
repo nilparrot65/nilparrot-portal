@@ -34,7 +34,7 @@ export const About = ({ activeMenu, setActiveMenu }: AboutProps) => {
                 Our story
               </span>
               <h2 className="text-3xl lg:text-4xl font-bold font-['Sora'] mt-1 mb-4 text-slate-900">
-                Founded by operators, built for operators
+                We <span className="text-4xl text-green-700">Nilparrot</span> build Solutions!
               </h2>
               <p className="text-slate-600 text-base mb-4 leading-relaxed">
                 <i>

@@ -1,13 +1,19 @@
-import React from "react";
+import React, { useState } from "react";
 
 import { menuItemsData } from "../data/menu";
 import { Link } from "react-router-dom";
 import type { Menu } from "../model/Menu";
-import {serviceCardData} from "../data/serviceData"
+import { serviceCardData } from "../data/serviceData";
+import SubscriptionSuccessModal from "./SubscriptionSuccessModal";
 
 function Footer() {
-
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const menuItems: Menu[] = menuItemsData.slice(1, -1);
+
+  const handleSubscribtion = (e:Event) => {
+    e.preventDefault();
+    setIsModalOpen(true);
+  };
 
   return (
     <>
@@ -26,7 +32,9 @@ function Footer() {
                 We help ambitious SaaS and tech companies design, build and
                 scale digital products that customers love.
               </p>
-              <p className="text-slate-400 text-sm mb-6 max-w-xs hover:text-white">info@nilparrot.com</p>
+              <p className="text-slate-400 text-sm mb-6 max-w-xs hover:text-white">
+                info@nilparrot.com
+              </p>
               <ul>
                 <li className="text-slate-400 text-sm max-w-xs">
                   Company Reg No: UDYAM-MH-26-1221044
@@ -109,15 +117,15 @@ function Footer() {
                 Company
               </h6>
               <ul className="space-y-2 text-sm text-slate-400">
-                {menuItems.map(menu=>(
-                <li>
-                  <Link
-                    to={menu.href}
-                    className="hover:text-white transition-colors"
-                  >
-                    {menu.label}
-                  </Link>
-                </li>  
+                {menuItems.map((menu) => (
+                  <li>
+                    <Link
+                      to={menu.href}
+                      className="hover:text-white transition-colors"
+                    >
+                      {menu.label}
+                    </Link>
+                  </li>
                 ))}
               </ul>
             </div>
@@ -127,14 +135,17 @@ function Footer() {
                 Services
               </h6>
               <ul className="space-y-2 text-sm text-slate-400">
-                {serviceCardData.map(service=>(<li>
-                  <Link
-                    to="/service-details" state={{serviceName:service.title}}
-                    className="hover:text-white transition-colors"
-                  >
-                    {service.title}
-                  </Link>
-                </li>))}
+                {serviceCardData.map((service) => (
+                  <li>
+                    <Link
+                      to="/service-details"
+                      state={{ serviceName: service.title }}
+                      className="hover:text-white transition-colors"
+                    >
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -142,7 +153,10 @@ function Footer() {
               <h6 className="font-bold text-white uppercase text-xs tracking-wider mb-4">
                 Stay updated with digital insights
               </h6>
-              <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
+              <form
+                onSubmit={e=>handleSubscribtion(e)}
+                className="flex gap-2"
+              >
                 <input
                   type="email"
                   placeholder="Your email address"
@@ -169,6 +183,10 @@ function Footer() {
                   </svg>
                 </button>
               </form>
+              <SubscriptionSuccessModal
+                isOpen={isModalOpen}
+                onClose={() => setIsModalOpen(false)}
+              />
             </div>
           </div>
 
@@ -177,13 +195,22 @@ function Footer() {
               &copy; 2026 nilparrot. All rights reserved
             </p>
             <div className="flex space-x-6">
-              <Link to="privacy-policy" className="hover:text-white transition-colors">
+              <Link
+                to="privacy-policy"
+                className="hover:text-white transition-colors"
+              >
                 Privacy Policy
               </Link>
-              <Link to="refund-policy" className="hover:text-white transition-colors">
+              <Link
+                to="refund-policy"
+                className="hover:text-white transition-colors"
+              >
                 Refund Policy
               </Link>
-              <Link to="terms-and-conditions" className="hover:text-white transition-colors">
+              <Link
+                to="terms-and-conditions"
+                className="hover:text-white transition-colors"
+              >
                 Terms And Conditions
               </Link>
             </div>
