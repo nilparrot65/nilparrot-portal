@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Header from "../componant/Header";
 
 import {serviceCardData} from "../data/serviceData"
@@ -10,8 +10,11 @@ interface ServicesProps {
 }
 
 export const Services = ({ activeMenu, setActiveMenu }: ServicesProps) => {
-  useEffect(() => {
-    setActiveMenu("services");
+
+const location = useLocation();
+
+  useEffect(() => {    
+    setActiveMenu(location.state.activeMenu===undefined?activeMenu:location.state.activeMenu);
   }, []);
   
 

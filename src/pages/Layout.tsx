@@ -26,7 +26,7 @@ const portfolioSingleActiveMenu = "portfolio-single";
       <Navbar activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>
 
       <Routes>
-        <Route path="/" element={<Home activeMenu={activeMenu}/>}/>
+        <Route path="/" element={<Home activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>}/>
         <Route path="/services" element={<Services activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>} />
         <Route path="/service-details" element={<SingleService activeMenu={serviceDetailsActiveMenu}/>} />        
         <Route path="/portfolio" element={<Portfolio activeMenu={activeMenu} setActiveMenu={setActiveMenu}/>} />

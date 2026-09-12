@@ -1,5 +1,6 @@
+import { useEffect } from "react";
 import Header from "../componant/Header";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 interface CapabilityCard {
   title: string;
@@ -22,8 +23,18 @@ interface ProcessStep {
 
 interface HomeProps{
   activeMenu:string;
+  setActiveMenu: (type:string)=>void;
 }
-function Home({activeMenu}:HomeProps) {
+function Home({activeMenu, setActiveMenu}:HomeProps) {
+
+  const location = useLocation();
+  useEffect(() => {
+    if (location.state?.activeMenu) {
+      console.log("home active menu="+location.state?.activeMenu);
+      setActiveMenu(location.state.activeMenu);
+    }
+  }, [location.state]);
+
   const capabilities: CapabilityCard[] = [
     {
       title: "Product Strategy",

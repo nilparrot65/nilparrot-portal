@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import Header from "../componant/Header";
 
 interface PortfolioItem {
@@ -10,13 +10,16 @@ interface PortfolioItem {
   alt: string;
 }
 interface PortfolioProps {
-  activeMenu:string;
+  activeMenu: string;
   setActiveMenu: (type: string) => void;
 }
-export const Portfolio = ({activeMenu, setActiveMenu}:PortfolioProps) => {
-useEffect(() => {
-      setActiveMenu("portfolio");
-    }, []);
+export const Portfolio = ({ activeMenu, setActiveMenu }: PortfolioProps) => {
+  const location = useLocation();
+  useEffect(() => {
+    setActiveMenu(
+      location.state.activeMenu === undefined ? activeMenu:location.state.activeMenu,
+    );
+  }, []);
   const [activeFilter, setActiveFilter] = useState("all");
 
   const filters = [

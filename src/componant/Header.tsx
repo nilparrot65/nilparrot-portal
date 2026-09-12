@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface HeaderProps {
   activeMenu: string;
@@ -16,6 +16,20 @@ export const Header = ({ activeMenu }: HeaderProps) => {
   map.set("privacy-policy", "Privacy Policy");
   map.set("refund-policy", "Refund Policy");
   map.set("terms-and-conditions", "Terms & Conditions");
+
+  const navigate = useNavigate();
+
+  const navigateToHome = () => {
+    navigate("/", { state: { activeMenu: "home" } });
+  };
+
+  const navigateToService = () => {
+    navigate("/services", { state: { activeMenu: "services" } });
+  };
+
+  const navigateToPortfolio = () => {
+    navigate("/portfolio", { state: { activeMenu: "portfolio" } });
+  };
 
   return (
     <>
@@ -38,7 +52,7 @@ export const Header = ({ activeMenu }: HeaderProps) => {
                   </h1>
 
                   <p className="text-lg text-slate-600 mb-8 max-w-[540px] mx-auto lg:mx-0 leading-relaxed">
-                    Nexora is your end-to-end product partner — strategy, design
+                    Nilparrot is your end-to-end product partner — strategy, design
                     and engineering teams that ship measurable results for SaaS
                     and tech-driven businesses.
                   </p>
@@ -49,13 +63,25 @@ export const Header = ({ activeMenu }: HeaderProps) => {
                       to="/contact"
                       className="inline-flex items-center justify-center text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-semibold rounded-xl text-base px-6 py-3.5 transition-all shadow-lg shadow-blue-500/20"
                     >
-                      Start a Project <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
-</svg>
-
+                      Start a Project{" "}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke-width="1.5"
+                        stroke="currentColor"
+                        class="size-6"
+                      >
+                        <path
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
+                        />
+                      </svg>
                     </Link>
                     <Link
                       to="/services"
+                      state={{activeMenu:"services"}}
                       className="inline-flex items-center justify-center text-slate-700 bg-slate-100 hover:bg-slate-200 focus:ring-4 focus:outline-none focus:ring-slate-200 font-semibold rounded-xl text-base px-6 py-3.5 transition-all"
                     >
                       Explore Services
@@ -109,10 +135,20 @@ export const Header = ({ activeMenu }: HeaderProps) => {
                     {/* Floating Badge 1 (Delivered) */}
                     <div className="hidden sm:flex items-center gap-3 absolute -top-6 -left-6 bg-white border border-slate-100 p-4 rounded-2xl shadow-xl z-20">
                       <div className="w-10 h-10 bg-emerald-100 text-emerald-600 rounded-xl flex items-center justify-center text-lg font-bold shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
-</svg>
-
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="size-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m4.5 12.75 6 6 9-13.5"
+                          />
+                        </svg>
                       </div>
                       <div className="text-sm font-semibold text-slate-900">
                         Project Delivered
@@ -126,10 +162,20 @@ export const Header = ({ activeMenu }: HeaderProps) => {
                     {/* Floating Badge 2 (ROI) */}
                     <div className="hidden sm:flex items-center gap-3 absolute -bottom-6 -right-6 bg-white border border-slate-100 p-4 rounded-2xl shadow-xl z-20">
                       <div className="w-10 h-10 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center text-lg font-bold shrink-0">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-  <path stroke-linecap="round" stroke-linejoin="round" d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z" />
-</svg>
-
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke-width="1.5"
+                          stroke="currentColor"
+                          class="size-6"
+                        >
+                          <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="m3.75 13.5 10.5-11.25L12 10.5h8.25L9.75 21.75 12 13.5H3.75Z"
+                          />
+                        </svg>
                       </div>
                       <div className="text-sm font-semibold text-slate-900">
                         Avg. 3.2x ROI
@@ -154,17 +200,50 @@ export const Header = ({ activeMenu }: HeaderProps) => {
                 {map.get(activeMenu)}
               </h1>
               <nav className="flex justify-center text-sm text-slate-900 space-x-2">
-                {/* <Link to="/" className="hover:text-white transition-colors"> */}
-                  {!["service-details", "portfolio-single"].includes(
-                    activeMenu,
-                  ) && <span>home </span>}
-                  {["service-details"].includes(activeMenu) && (
-                    <span>home / services</span>
-                  )}
-                  {["portfolio-single"].includes(activeMenu) && (
-                    <span>home / portfolio</span>
-                  )}
-                {/* </Link> */}
+                {!["service-details", "portfolio-single"].includes(
+                  activeMenu,
+                ) && (
+                  <span
+                    className="cursor-pointer hover:text-white"
+                    onClick={navigateToHome}
+                  >
+                    home
+                  </span>
+                )}
+                {["service-details"].includes(activeMenu) && (
+                  <>
+                    <span
+                      className="cursor-pointer hover:text-white"
+                      onClick={navigateToHome}
+                    >
+                      home
+                    </span>
+                    <span className="mr1">/</span>
+                    <span
+                      className="cursor-pointer hover:text-white"
+                      onClick={navigateToService}
+                    >
+                      services
+                    </span>
+                  </>
+                )}
+                {["portfolio-single"].includes(activeMenu) && (
+                  <>
+                    <span
+                      className="cursor-pointer hover:text-white"
+                      onClick={navigateToHome}
+                    >
+                      home
+                    </span>
+                    <span className="mr1">/</span>
+                    <span
+                      className="cursor-pointer hover:text-white"
+                      onClick={navigateToPortfolio}
+                    >
+                      portfolio
+                    </span>
+                  </>
+                )}
                 <span>/</span>
                 <span className="text-green-400 font-medium">{activeMenu}</span>
               </nav>

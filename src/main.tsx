@@ -6,7 +6,7 @@ import { BrowserRouter, HashRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <BrowserRouter basename="/nilparrot-portal">
+    <BrowserRouter basename="/nilparrot-portal/">
       <App />
     </BrowserRouter>
   </StrictMode>,

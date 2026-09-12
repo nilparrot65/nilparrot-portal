@@ -1,6 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Header from "../componant/Header";
 import { Link } from "react-router-dom";
+import SubscriptionSuccessModal from "../componant/SubscriptionSuccessModal";
 
 interface ContactProps {
   activeMenu: string;
@@ -10,6 +11,39 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
   useEffect(() => {
     setActiveMenu("contact");
   }, []);
+
+  const SERVICES = [
+    { id: "software-application", label: "Software Application" },
+    { id: "ux-design", label: "UI/UX Design" },
+    { id: "web-development", label: "Web Development" },
+  ];
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const [name, setName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [service, setService] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
+
+  const handleServiceChange = (val: string) => {
+    setService(val);
+  };
+
+  const handleFormSubmit = (e: Event) => {
+    e.preventDefault();
+
+    const obj = {
+      name: name,
+      email: email,
+      phone: phone,
+      service: service,
+      message: message,
+    };
+
+    // alert(JSON.stringify(obj));
+    setIsModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen text-slate-900 font-sans antialiased">
@@ -28,7 +62,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="size-6"
+                  className="size-6"
                 >
                   <path
                     stroke-linecap="round"
@@ -58,7 +92,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                   viewBox="0 0 24 24"
                   stroke-width="1.5"
                   stroke="currentColor"
-                  class="size-6"
+                  className="size-6"
                 >
                   <path
                     stroke-linecap="round"
@@ -122,18 +156,20 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                 Tell us about your project
               </h2>
 
-              <form onSubmit={(e) => e.preventDefault()} className="space-y-4">
+              <form onSubmit={(e) => handleFormSubmit(e)} className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
                     <label
-                      htmlFor="fullName"
+                      htmlFor="workEmail"
                       className="block mb-2 text-sm font-medium text-slate-900"
                     >
-                      Full Name
+                      Name
                     </label>
                     <input
+                      onChange={(e) => setName(e.target.value)}
+                      value={name}
                       type="text"
-                      id="fullName"
+                      id="workEmail"
                       className="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
                       required
                     />
@@ -143,9 +179,11 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                       htmlFor="workEmail"
                       className="block mb-2 text-sm font-medium text-slate-900"
                     >
-                      Work Email
+                      Email Address
                     </label>
                     <input
+                      onChange={(e) => setEmail(e.target.value)}
+                      value={email}
                       type="email"
                       id="workEmail"
                       className="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
@@ -160,9 +198,11 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                       htmlFor="companyName"
                       className="block mb-2 text-sm font-medium text-slate-900"
                     >
-                      Company
+                      Phone Number
                     </label>
                     <input
+                      onChange={(e) => setPhone(e.target.value)}
+                      value={phone}
                       type="text"
                       id="companyName"
                       className="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
@@ -170,48 +210,28 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                   </div>
                   <div>
                     <label
-                      htmlFor="budget"
+                      htmlFor="service"
                       className="block mb-2 text-sm font-medium text-slate-900"
                     >
-                      Estimated Budget
+                      Service Needed
                     </label>
                     <select
-                      id="budget"
-                      defaultValue=""
+                      id="service"
+                      value={service}
+                      onChange={(e) => handleServiceChange(e.target.value)}
                       className="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
                       required
                     >
                       <option value="" disabled>
-                        Select a range
+                        Select a service
                       </option>
-                      <option>Under ₹5,000</option>
-                      <option>₹5,000 – ₹15,000</option>
-                      <option>₹15,000 – ₹50,000</option>
-                      <option>₹50,000+</option>
+                      {SERVICES.map((item) => (
+                        <option key={item.id} value={item.id}>
+                          {item.label}
+                        </option>
+                      ))}
                     </select>
                   </div>
-                </div>
-
-                <div>
-                  <label
-                    htmlFor="service"
-                    className="block mb-2 text-sm font-medium text-slate-900"
-                  >
-                    Service Needed
-                  </label>
-                  <select
-                    id="service"
-                    defaultValue=""
-                    className="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
-                    required
-                  >
-                    <option value="" disabled>
-                      Select a service
-                    </option>
-                    <option>Software Application</option>
-                    <option>UI/UX Design</option>
-                    <option>Web Development</option>
-                  </select>
                 </div>
 
                 <div>
@@ -219,9 +239,11 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                     htmlFor="message"
                     className="block mb-2 text-sm font-medium text-slate-900"
                   >
-                    Project Details
+                    How can we help you?
                   </label>
                   <textarea
+                    onChange={(e) => setMessage(e.target.value)}
+                    value={message}
                     id="message"
                     rows={4}
                     className="bg-slate-50 border border-slate-200 text-slate-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-full p-3"
@@ -262,6 +284,11 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                   Send Message <i className="bi bi-send ms-2"></i>
                 </button>
               </form>
+              <SubscriptionSuccessModal
+                isModalOpen={isModalOpen}
+                setIsModalOpen={() => setIsModalOpen(false)}
+                message={"We will connect with you shortly soon."}
+              />
             </div>
 
             {/* Map & Office Hours Column */}
@@ -286,7 +313,7 @@ export const Contact = ({ activeMenu, setActiveMenu }: ContactProps) => {
                     viewBox="0 0 24 24"
                     stroke-width="1.5"
                     stroke="currentColor"
-                    class="size-6"
+                    className="size-6"
                   >
                     <path
                       stroke-linecap="round"

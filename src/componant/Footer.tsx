@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 import { menuItemsData } from "../data/menu";
 import { Link } from "react-router-dom";
@@ -184,8 +184,9 @@ function Footer() {
                 </button>
               </form>
               <SubscriptionSuccessModal
-                isOpen={isModalOpen}
-                onClose={() => setIsModalOpen(false)}
+                isModalOpen={isModalOpen}
+                setIsModalOpen={() => setIsModalOpen(false)}
+                message={"Your subscription has been confirmed. You've been added to our list and will receive updates whenever we launch a new application."}
               />
             </div>
           </div>
